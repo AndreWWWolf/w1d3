@@ -37,7 +37,7 @@ var printPlaylists = function () {
     console.log(id + ": " + name + " - " + tracks.length + " tracks");
   }
 }
-printPlaylists();
+// printPlaylists();
 
 // prints a list of all tracks, in the form:
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
@@ -53,7 +53,7 @@ var printTracks = function () {
     console.log(id + ': '  + name + ' by '   + artist + ' (' + album + ') ');
   }
 }
-printTracks();
+// printTracks();
 
 // prints a list of tracks for a given playlist, in the form:
 // p01: Coding Music - 2 tracks
@@ -73,15 +73,23 @@ var printPlaylist = function (playlistId) {
     console.log(id + ': '  + name + ' by '   + artist + ' (' + album + ') ');
   }
 }
-printPlaylist('p01');
+// printPlaylist('p01');
 
 
 // adds an existing track to an existing playlist
 
 var addTrackToPlaylist = function (trackId, playlistId) {
-
+  var track = library.tracks[trackId];
+  var playlist = library.playlists[playlistId];
+  if (track && playlist) {
+    var trackArr = library.playlists[playlistId].tracks;
+    trackArr.push(trackId);
+    console.log(playlistId + " " + trackArr);
+  } else {
+    console.log('Use existing values');
+  }
 }
-
+// addTrackToPlaylist('t01', 'p02');
 
 // generates a unique id
 // (use this for addTrack and addPlaylist)
@@ -94,16 +102,31 @@ var uid = function() {
 // adds a track to the library
 
 var addTrack = function (name, artist, album) {
-
+  var trackLib = library.tracks;
+  var uniqueId = uid().replace(/['"]+/g, '');
+  trackLib[uniqueId] = {
+    id: uniqueId,
+    name: name,
+    artist: artist,
+    album: album
+  };
+  console.log(trackLib);
 }
-
+// addTrack('Andrew', 'is', 'awesome');
 
 // adds a playlist to the library
 
 var addPlaylist = function (name) {
-
+  var playlistLib = library.playlists;
+  var uniqueId = uid().replace(/['"]+/g, '');
+  playlistLib[uniqueId] = {
+    id: uniqueId,
+    name: name,
+    tracks: []
+  }
+  console.log(playlistLib);
 }
-
+// addPlaylist('p03');
 
 // STRETCH:
 // given a query string string, prints a list of tracks
@@ -112,5 +135,17 @@ var addPlaylist = function (name) {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/search
 
 var printSearchResults = function(query) {
-
+  var results = [];
+  var trackLib = library.tracks;
+  var que = query.toLowerCase();
+  for (var t in trackLib) {
+    for (var q in trackLib[t]) {
+      results = trackLib[t][q].toLowerCase();
+      var search = results.search(que);
+      if (search === 0) {
+        console.log(trackLib[t]);
+      }
+    }
+  }
 }
+ // printSearchResults('code');

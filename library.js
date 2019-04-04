@@ -38,7 +38,13 @@ var printPlaylists = function () {
   }
 }
 // printPlaylists();
-
+printPlaylists: function () {
+  for (var p in this.playlists) {
+    var name = this.playlists[p].name;
+    var numOfTracks = this.playlists[p].tracks.length;
+    console.log(p + ': ' + name + ' - ' + numOftracks + ' tracks');
+  }
+}
 // prints a list of all tracks, in the form:
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
 // t02: Model View Controller by James Dempsey (WWDC 2003)

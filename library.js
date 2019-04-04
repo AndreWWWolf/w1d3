@@ -30,9 +30,14 @@ var library = {
 // p02: Other Playlist - 1 tracks
 
 var printPlaylists = function () {
-
+  for (var playL in library.playlists) {
+    let id = library.playlists[playL]["id"];
+    let name = library.playlists[playL]["name"];
+    let tracks = library.playlists[playL]["tracks"];
+    console.log(id + ": " + name + " - " + tracks.length + " tracks");
+  }
 }
-
+printPlaylists();
 
 // prints a list of all tracks, in the form:
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
@@ -40,9 +45,15 @@ var printPlaylists = function () {
 // t03: Four Thirty-Three by John Cage (Woodstock 1952)
 
 var printTracks = function () {
-
+  for (var tracks in library.tracks) {
+    let id = library.tracks[tracks]["id"];
+    let name = library.tracks[tracks]["name"];
+    let artist = library.tracks[tracks]["artist"];
+    let album = library.tracks[tracks]["album"];
+    console.log(id + ': '  + name + ' by '   + artist + ' (' + album + ') ');
+  }
 }
-
+printTracks();
 
 // prints a list of tracks for a given playlist, in the form:
 // p01: Coding Music - 2 tracks
@@ -86,7 +97,7 @@ var addPlaylist = function (name) {
 // STRETCH:
 // given a query string string, prints a list of tracks
 // where the name, artist or album contains the query string (case insensitive)
-// tip: use "string".search("tri") 
+// tip: use "string".search("tri")
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/search
 
 var printSearchResults = function(query) {
